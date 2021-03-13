@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,6 +24,9 @@ public class LoginPage extends AppCompatActivity {
     EditText userEmail;
     EditText userPassword;
     Button login;
+    TextView forgetPassword;
+    TextView btnSignUp;
+
     ProgressDialog pd;
 
 
@@ -35,7 +39,10 @@ public class LoginPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userPassword = findViewById(R.id.password);
         userEmail = findViewById(R.id.email);
-        login = findViewById(R.id.login);
+        forgetPassword = findViewById(R.id.forget);
+        btnSignUp = findViewById(R.id.btnSignUp);
+        login = findViewById(R.id.signin);
+
         pd = new ProgressDialog(this);
         pd.setMessage("Please wait..");
         pd.setCanceledOnTouchOutside(false);
@@ -45,11 +52,25 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(validate()) {
+                if (validate()) {
 
                     loginUser();
 
                 }
+            }
+        });
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), SignupPage.class);
+                startActivity(it);
+            }
+        });
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), PasswordReset.class);
+                startActivity(it);
             }
         });
 
@@ -57,11 +78,11 @@ public class LoginPage extends AppCompatActivity {
 
     public boolean validate() {
 
-        if(userEmail.getText().toString().isEmpty()){
+        if (userEmail.getText().toString().isEmpty()) {
             userEmail.setError("Field required");
             return false;
         }
-        if(userPassword.getText().toString().isEmpty()){
+        if (userPassword.getText().toString().isEmpty()) {
             userPassword.setError("Field required");
             return false;
         }
@@ -79,7 +100,7 @@ public class LoginPage extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
                         //
                         pd.dismiss();
-                        Toast.makeText(getApplicationContext(),"Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
                         Intent it = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(it);
                     }
@@ -89,7 +110,7 @@ public class LoginPage extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         //
                         pd.dismiss();
-                        Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
 

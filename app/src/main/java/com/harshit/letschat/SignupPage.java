@@ -32,7 +32,6 @@ public class SignupPage extends AppCompatActivity {
     TextView login;
     EditText cPass;
     Button signup;
-    Button check;
     ProgressDialog pd;
 
 
@@ -46,11 +45,10 @@ public class SignupPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userName = findViewById(R.id.userName);
         userPassword = findViewById(R.id.password);
-        cPass = findViewById(R.id.cPassword);
+        cPass = findViewById(R.id.cPass);
         userEmail = findViewById(R.id.email);
-        signup = findViewById(R.id.signup);
-        check = findViewById(R.id.check);
-        login = findViewById(R.id.login);
+        signup = findViewById(R.id.btnSignUp);
+        login = findViewById(R.id.btnSignIn);
         pd = new ProgressDialog(this);
 
 
@@ -73,19 +71,6 @@ public class SignupPage extends AppCompatActivity {
             }
         });
 
-
-        //temp
-        check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mAuth.getCurrentUser() != null) {
-                    Intent it = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(it);
-                } else {
-                    Toast.makeText(getApplicationContext(), "User not registered", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
 
     }
 

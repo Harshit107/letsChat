@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     Button logout;
+    Button profile;
     FirebaseAuth mAuth;
 
     @Override
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         logout = findViewById(R.id.logout);
+        profile = findViewById(R.id.profile);
+
         mAuth = FirebaseAuth.getInstance();
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Profile.class));
+            }
+        });
+
 
 
     }

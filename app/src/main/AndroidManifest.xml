@@ -9,22 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LetsChat">
-        <activity android:name=".LoginPage">
-
-        </activity>
-<!--        Main Activity-->
-        <activity android:name=".MainActivity">
-
-        </activity>
-
-<!--        Signup Activity-->
-        <activity android:name=".SignupPage">
+        <activity android:name=".Profile"></activity>
+        <activity android:name=".LoginPage"></activity> <!-- Main Activity -->
+        <activity android:name=".MainActivity"></activity> <!-- Signup Activity -->
+        <activity android:name=".SignupPage"></activity>
+        <activity android:name=".PasswordReset" />
+        <activity android:name=".SplashScrActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
