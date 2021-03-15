@@ -145,3 +145,11 @@ public class SignupPage extends AppCompatActivity {
 
     }
 }
+
+//universal chat ->message -> message
+//group chat
+//personal chat
+//how send image, document, live location
+//user profile
+//last seen
+//typing - optional

@@ -8,4 +8,12 @@
     <color name="black">#000</color>
     <color name="transparent">#00FFFFFF</color>
 
+<!--    color for group-->
+    <color name="orange">#EA4411</color>
+    <color name="yellow">#B89705</color>
+    <color name="lightyellow">#EDD981</color>
+    <color name="lightOrange">#F38B6B</color>
+    <color name="green">#BEF682</color>
+    <color name="lightWhite">#AEABAB</color>
+
 </resources>

@@ -11,9 +11,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SplashScrActivity extends AppCompatActivity {
-    private ImageView logoSplash, chmaraTech, logoWhite;
+    private ImageView logoSplash, letsChatText, logoWhite;
     private Animation anim1, anim2, anim3;
 
     @Override
@@ -23,6 +24,13 @@ public class SplashScrActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_scr);
+
+        try {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         init();
         logoSplash.startAnimation(anim1);
         anim1.setAnimationListener(new Animation.AnimationListener() {
@@ -35,7 +43,7 @@ public class SplashScrActivity extends AppCompatActivity {
                 logoSplash.startAnimation(anim2);
                 logoSplash.setVisibility(View.GONE);
                 logoWhite.startAnimation(anim3);
-                chmaraTech.startAnimation(anim3);
+                letsChatText.startAnimation(anim3);
                 anim3.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
@@ -44,7 +52,7 @@ public class SplashScrActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         logoWhite.setVisibility(View.VISIBLE);
-                        chmaraTech.setVisibility(View.VISIBLE);
+                        letsChatText.setVisibility(View.VISIBLE);
                         finish();
                         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
                             startActivity(new Intent(SplashScrActivity.this, LoginPage.class));
@@ -75,7 +83,8 @@ public class SplashScrActivity extends AppCompatActivity {
 
         logoSplash = findViewById(R.id.ivLogoSplash);
         logoWhite = findViewById(R.id.ivLogoWhite);
-        chmaraTech = findViewById(R.id.ivCHTtext);
+        letsChatText = findViewById(R.id.ivCHTtext);
+
         anim1 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.rotate);
         anim2 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fadeout);
         anim3 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fadein);

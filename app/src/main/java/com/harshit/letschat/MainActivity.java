@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button logout;
     Button profile;
+    Button universal;
     FirebaseAuth mAuth;
 
     @Override
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         logout = findViewById(R.id.logout);
         profile = findViewById(R.id.profile);
+        universal = findViewById(R.id.universal);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -40,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Profile.class));
+            }
+        });
+
+        universal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), UniversalChat.class);
+                startActivity(it);
             }
         });
 
