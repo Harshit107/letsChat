@@ -8,18 +8,28 @@ public class UniversalMessageList {
     String senderName;
     String senderImage;
     String senderId;
+    String myId;
 
     public UniversalMessageList(String message) {
         this.message = message;
     }
 
-    public UniversalMessageList(String message, String key, String time, String senderName, String senderImage, String senderId) {
+    public UniversalMessageList(String message, String key, String time, String senderName, String senderImage, String senderId, String myId) {
         this.message = message;
         this.key = key;
         this.time = time;
         this.senderName = senderName;
         this.senderImage = senderImage;
         this.senderId = senderId;
+        this.myId = myId;
+    }
+
+    public String getMyId() {
+        return myId;
+    }
+
+    public void setMyId(String myId) {
+        this.myId = myId;
     }
 
     public String getMessage() {

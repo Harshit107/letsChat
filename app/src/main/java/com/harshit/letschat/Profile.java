@@ -122,7 +122,7 @@ public class Profile extends AppCompatActivity {
     }
 
     private void getUserDataFromDatabase() {
-        MyDatabase.userDetail().keepSynced(true);
+//        MyDatabase.userDetail().keepSynced(true);
         MyDatabase.userDetail().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot data) {

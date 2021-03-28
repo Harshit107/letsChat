@@ -5,13 +5,9 @@
     android:layout_width="match_parent"
     android:background="@drawable/background"
     android:layout_height="match_parent"
-    tools:context=".UniversalChat">
+    tools:context=".UniversalRoom">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-<!--        Top View-->
+        <!--        Top View-->
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,14 +32,14 @@
                     android:src="@drawable/ic_baseline_arrow_back_24"
                     app:tint="@color/white" />
 
-                 <ImageView
+                <ImageView
                     android:id="@+id/profileLogo"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                     android:layout_toRightOf="@id/back"
+                    android:layout_toRightOf="@id/back"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/logo"
-                     android:visibility="gone"
+                    android:visibility="gone"
                     app:tint="@color/white" />
 
                 <LinearLayout
@@ -64,11 +60,11 @@
                         android:ellipsize="end"
                         android:textStyle="bold"
                         android:id="@+id/name"/>
-                     <TextView
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Last Seen"
-                         android:visibility="gone"
+                        android:visibility="gone"
                         android:textColor="@color/white"
                         android:id="@+id/lastActive"/>
 
@@ -91,7 +87,7 @@
 
 
 
-<!--        for sending message-->
+        <!--        for sending message-->
 
         <RelativeLayout
             android:id="@+id/chatRelative"
@@ -129,6 +125,3 @@
 
 
     </RelativeLayout>
-
-
-</RelativeLayout>

@@ -48,10 +48,13 @@ public class MainActivity extends AppCompatActivity {
         universal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getApplicationContext(), UniversalChat.class);
+                Intent it = new Intent(getApplicationContext(), UniversalRoom.class);
                 startActivity(it);
             }
         });
+
+        Intent it = new Intent(getApplicationContext(), UniversalRoom.class);
+        startActivity(it);
 
 
 

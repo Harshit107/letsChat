@@ -1,15 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
 
-   <include
+<!--   Sender-->
+   <RelativeLayout
        android:id="@+id/sender"
-       layout="@layout/sender_layout"/>
-   <include
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentEnd="true"
+       android:paddingEnd="5dp" >
+
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:orientation="vertical"
+          android:layout_margin="5dp"
+          android:padding="3dp"
+          android:background="@drawable/curve_sender"
+          android:layout_alignParentEnd="true"
+          android:layout_height="wrap_content">
+         <TextView
+             android:id="@+id/senderMessage"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="end"
+             android:maxWidth="300dp"
+             android:paddingStart="10dp"
+             android:paddingEnd="5dp"
+             android:text="Hello"
+             android:textColor="@color/white"
+             android:textSize="20sp" />
+
+         <TextView
+             android:id="@+id/senderTime"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:maxWidth="300dp"
+             android:gravity="end"
+             android:paddingEnd="5dp"
+             android:paddingStart="5dp"
+             android:text="Time"
+             android:textColor="@color/lightWhite"
+             android:textSize="12sp" />
+
+      </LinearLayout>
+
+
+
+   </RelativeLayout>
+
+
+   <!--   Receive-->
+   <RelativeLayout
        android:id="@+id/receiver"
-       layout="@layout/reciever_layout"/>
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:padding="3dp"
+
+       android:background="@drawable/curve_reciever"
+       android:layout_margin="5dp"
+       >
+
+      <TextView
+          android:id="@+id/receiverName"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentStart="true"
+          android:paddingStart="5dp"
+          android:maxWidth="300dp"
+          android:text="Name"
+          android:textSize="14sp" />
+
+      <TextView
+          android:id="@+id/receivermessage"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/receiverName"
+          android:layout_alignParentStart="true"
+          android:gravity="end"
+          android:maxWidth="300dp"
+          android:paddingEnd="10dp"
+          android:text="Hello"
+          android:layout_marginStart="5dp"
+          android:textColor="@color/white"
+          android:textSize="20sp" />
+
+      <TextView
+          android:id="@+id/receivertime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/receivermessage"
+          android:layout_alignParentLeft="true"
+          android:maxWidth="300dp"
+          android:paddingStart="5dp"
+          android:textColor="@color/lightWhite"
+          android:text="Time"
+          android:textSize="12dp" />
+
+   </RelativeLayout>
+
 
 </RelativeLayout>
