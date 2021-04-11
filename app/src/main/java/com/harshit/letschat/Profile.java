@@ -47,7 +47,6 @@ public class Profile extends AppCompatActivity {
     ImageView edit;
     ImageView profileImage;
     ImageView profile_img_btn;
-
     ProgressDialog pbar;
     boolean flag = false;
 
@@ -70,7 +69,7 @@ public class Profile extends AppCompatActivity {
         pbar.setCancelable(false);
 //        pbar.show();
 
-        disableEt();
+        disableEt();  //1
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +77,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        getUserDataFromDatabase();
+        getUserDataFromDatabase();  //2
 
 
         edit.setOnClickListener(new View.OnClickListener() {
@@ -165,12 +164,15 @@ public class Profile extends AppCompatActivity {
     }
 
 
+
+    //
     public void selectImage() {
         Intent it = new Intent(Intent.ACTION_GET_CONTENT);
         it.setType("image/*");
         startActivityForResult(new Intent(Intent.createChooser(it, "Choose Image")), 120);
     }
 
+    //
     public void checkPermission() {
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), new String(Manifest.permission.READ_EXTERNAL_STORAGE)) !=
@@ -183,6 +185,7 @@ public class Profile extends AppCompatActivity {
 
     }
 
+    //
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -195,6 +198,7 @@ public class Profile extends AppCompatActivity {
         }
     }
 
+    //
     void uploadImageToStorage(Uri uri){
         pbar.show();
         StorageReference sRef = FirebaseStorage.getInstance().getReference()

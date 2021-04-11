@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     Button logout;
     Button profile;
     Button universal;
+    Button createGroup;
     FirebaseAuth mAuth;
 
     @Override
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         profile = findViewById(R.id.profile);
         universal = findViewById(R.id.universal);
-
+        createGroup = findViewById(R.id.createGroup);
         mAuth = FirebaseAuth.getInstance();
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +54,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intent it = new Intent(getApplicationContext(), UniversalRoom.class);
-        startActivity(it);
+
+   createGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), CreateGroup.class);
+                startActivity(it);
+            }
+        });
+
 
 
 

@@ -25,5 +25,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Universal" />
+   <Button
+        android:id="@+id/groupChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Group Chat" />
+   <Button
+        android:id="@+id/createGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Create Group" />
 
 </LinearLayout>

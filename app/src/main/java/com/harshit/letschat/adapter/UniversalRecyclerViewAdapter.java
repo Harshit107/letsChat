@@ -45,11 +45,12 @@ public class UniversalRecyclerViewAdapter extends RecyclerView.Adapter<Universal
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+
         String senderId = lists.get(position).getSenderId();
 
         int[] color = new int[]{R.color.colorAccent,R.color.green,R.color.yellow,R.color.orange,R.color.lightOrange,R.color.lightyellow};
 
-            Log.d(TAG, position+" S->"+senderId+" My->"+uid);
+//            Log.d(TAG, position+" S->"+senderId+" My->"+uid);
 
             holder.sender.setVisibility(View.GONE);
             holder.senderMessage.setVisibility(View.GONE);
@@ -133,5 +134,6 @@ public class UniversalRecyclerViewAdapter extends RecyclerView.Adapter<Universal
        notifyDataSetChanged();
 
     }
+    // empty , 1
 
 }

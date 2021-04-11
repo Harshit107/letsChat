@@ -114,12 +114,10 @@ public class SignupPage extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        //hashMap
-                        //setValue
+                        
                         Map<String, Object> hm = new HashMap<>();
                         hm.put("name", name);
                         hm.put("email", emailID);
-
                         MyDatabase.userDetail().setValue(hm)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -130,7 +128,6 @@ public class SignupPage extends AppCompatActivity {
                                         startActivity(it);
                                     }
                                 });
-
 
                     }
                 })

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,6 +41,7 @@ public class UniversalRoom extends AppCompatActivity {
 
     RecyclerView recyclerView;
     public UniversalRecyclerViewAdapter universalAdapter;
+
     ArrayList<UniversalMessageList> list;
 
     String myName = "";
@@ -50,7 +52,7 @@ public class UniversalRoom extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_universal_room);
 
-        init();
+        init();  //1
         list = new ArrayList<>(); //1234564
         universalAdapter = new UniversalRecyclerViewAdapter(list,getApplicationContext(),this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -64,8 +66,8 @@ public class UniversalRoom extends AppCompatActivity {
 
             }
         });
-        getSenderProfile();
-        getNewMessage();
+        getSenderProfile(); //2
+        getNewMessage(); //3
 
 
     }
@@ -107,34 +109,55 @@ public class UniversalRoom extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot data, @Nullable String previousChildName) {
-                if (data.exists()) {
-                    String key = data.getKey();
-                    String message = "";
-                    String time = "";
-                    String senderId="";
-                    String senderImage = "";
-                    String senderName = "";
+                Log.d(TAG,data.toString());
+            }
 
-                    if (data.hasChild("message"))
-                        message = data.child("message").getValue().toString();
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot data) {
+                Log.d(TAG,data.toString());
 
-                    if (data.hasChild("time"))
-                        time = data.child("time").getValue().toString();
+            }
 
-                    if (data.hasChild("senderName"))
-                        senderName = data.child("senderName").getValue().toString();
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot data, @Nullable String previousChildName) {
+                Log.d(TAG,data.toString());
 
-                    if (data.hasChild("senderImage"))
-                        senderImage = data.child("senderImage").getValue().toString();
+            }
 
-                    if (data.hasChild("senderId"))
-                        senderId = data.child("senderId").getValue().toString();
-//                        Log.d(TAG, "Key ="+key+" message =  "+message+" Time = "+time+"\n\n");
-//                        list.add();
-                    universalAdapter.addNewItem(new UniversalMessageList(message,key,time,senderName,senderImage,senderId, myId));
-                    recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d(TAG,error.toString());
 
-                }
+            }
+        });
+
+
+
+    }
+
+    private void myMessage() {
+        //previous
+        MyDatabase.universalChatRef().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //we add 1 data
+                list.clear();
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        //present
+        MyDatabase.universalChatRef().addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
             }
 
@@ -147,14 +170,13 @@ public class UniversalRoom extends AppCompatActivity {
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
     }
+
 
     private void getSenderProfile() {
 
@@ -192,9 +214,10 @@ public class UniversalRoom extends AppCompatActivity {
             userData.put("time","123");
             userData.put("messageId", messageKey);
             userData.put("senderId", myId);
-            userData.put("senderImage", "myId");
+            userData.put("senderImage", "default");
             userData.put("type", "message");
-            MyDatabase.universalChatRef().child(messageKey).setValue(userData)
+
+            MyDatabase.universalChatRef().setValue(userData)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -207,6 +230,15 @@ public class UniversalRoom extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
+
+            /*
+            -> message
+                ->name : Harshit
+                ->uuid : 123
+                -> image :
+
+
+             */
 
 
         }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    app:cardMaxElevation="10dp"
+    app:cardCornerRadius="3dp"
+    android:elevation="5dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/logo"
+            android:layout_margin="10dp"
+            android:id="@+id/groupImage"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Group Name"
+            android:id="@+id/groupName"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/groupImage"
+            android:layout_marginRight="20dp"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
