@@ -2,9 +2,9 @@ package com.harshit.letschat.model;
 
 public class GroupList {
 
-    String id;
-    String groupName;
-    String groupImage;
+    private String id;
+    private String groupName;
+    private String groupImage;
 
     public String getId() {
         return id;
@@ -35,4 +35,11 @@ public class GroupList {
         this.groupName = groupName;
         this.groupImage = groupImage;
     }
+
+    public GroupList(String id) {
+        this.id = id;
+        this.groupImage = "";
+        this.groupName = "";
+    }
+
 }

@@ -17,7 +17,7 @@ public class MyDatabase {
         return mRef.child("users").child("universal").child("message");
     }
 
-//   group
+//   myGroup
     public static DatabaseReference myGroups(){
         return mRef.child("users").child("group").child(mAuth.getUid());
     }

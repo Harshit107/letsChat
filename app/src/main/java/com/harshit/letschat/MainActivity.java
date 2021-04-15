@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     Button profile;
     Button universal;
     Button createGroup;
+    Button groupChat;
     FirebaseAuth mAuth;
 
     @Override
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         profile = findViewById(R.id.profile);
         universal = findViewById(R.id.universal);
         createGroup = findViewById(R.id.createGroup);
+        groupChat = findViewById(R.id.groupChat);
         mAuth = FirebaseAuth.getInstance();
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -55,10 +57,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-   createGroup.setOnClickListener(new View.OnClickListener() {
+        createGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getApplicationContext(), CreateGroup.class);
+                startActivity(it);
+            }
+        });
+
+        groupChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), MyGroup.class);
                 startActivity(it);
             }
         });
