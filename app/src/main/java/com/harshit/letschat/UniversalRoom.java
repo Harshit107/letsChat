@@ -217,7 +217,7 @@ public class UniversalRoom extends AppCompatActivity {
             userData.put("senderImage", "default");
             userData.put("type", "message");
 
-            MyDatabase.universalChatRef().setValue(userData)
+            MyDatabase.universalChatRef().child(messageKey).setValue(userData)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {

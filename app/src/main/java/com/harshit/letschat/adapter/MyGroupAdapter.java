@@ -1,6 +1,7 @@
 package com.harshit.letschat.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.harshit.letschat.Firebase.MyDatabase;
+import com.harshit.letschat.GroupChat;
 import com.harshit.letschat.MyGroup;
 import com.harshit.letschat.R;
 import com.harshit.letschat.model.GroupList;
@@ -80,8 +82,16 @@ public class MyGroupAdapter extends RecyclerView.Adapter<MyGroupAdapter.MyViewHo
             }
         });
 
-
-        holder.groupName.setText(groupList.get(position).getGroupName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(context, GroupChat.class);
+                it.putExtra("groupId", groupId);
+                it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(it);
+            }
+        });
+//        holder.groupName.setText(groupList.get(position).getGroupName());
 
 
     }

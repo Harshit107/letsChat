@@ -1,9 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/background"
     android:layout_height="match_parent"
-    tools:context=".GroupChat">
+    tools:context=".UniversalRoom">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!--        Top View-->
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:id="@+id/toolbar"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                >
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    app:tint="@color/white" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileLogo"
+                    android:layout_width="35dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="35dp"
+                    android:layout_toRightOf="@id/back"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/logo"
+                    android:visibility="visible"
+                    app:tint="@color/white" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="7dp"
+                    android:gravity="center_vertical"
+                    android:layout_toEndOf="@+id/profileLogo"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Group Name"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textStyle="bold"
+                        android:id="@+id/name"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Last Seen"
+                        android:visibility="gone"
+                        android:textColor="@color/white"
+                        android:id="@+id/lastActive"/>
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView"
+            android:layout_below="@id/toolbar"
+            android:layout_above="@id/chatRelative"
+            />
+
+
+
+        <!--        for sending message-->
+
+        <RelativeLayout
+            android:id="@+id/chatRelative"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="#313132"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/senderMessage"
+                android:paddingStart="10dp"
+                android:layout_toLeftOf="@id/sendBt"
+                android:layout_marginRight="2dp"
+                android:paddingRight="5dp"
+                android:background="@color/transparent"
+                android:layout_alignParentStart="true"
+                android:hint="Type your message..."
+                android:textColor="@color/white"
+                android:textColorHint="@color/lightWhite"/>
+            <ImageView
+                android:id="@+id/sendBt"
+                android:layout_alignParentRight="true"
+                android:layout_width="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_baseline_send_24"
+                app:tint="@color/white" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
