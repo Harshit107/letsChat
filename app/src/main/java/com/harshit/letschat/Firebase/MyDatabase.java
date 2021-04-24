@@ -26,7 +26,7 @@ public class MyDatabase {
         return mRef.child("groups").child("detail");
     }
 
-    //   group chat
+//  group chat
     public static DatabaseReference groupChat(){
         return mRef.child("groups").child("chats");
     }

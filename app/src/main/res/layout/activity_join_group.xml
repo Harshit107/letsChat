@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateGroup">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:id="@+id/toolbar"
+        >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/back"
+            app:tint="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_baseline_arrow_back_24"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/back"
+            android:text="Join Group"
+            android:textSize="20sp"
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Group ID"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/toolbar"
+        android:textColor="@color/black"
+        android:id="@+id/groupCodeTv"
+
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/groupCodeTv"
+        android:id="@+id/groupId"
+        android:hint="Enter Group ID"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:paddingStart="10dp"/>
+
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/groupId"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/ic_baseline_navigate_next_24"
+        android:background="@drawable/round_circle_color_primary"
+        app:tint="@color/white"
+        android:id="@+id/next"/>
+
+    <LinearLayout
+        android:id="@+id/shareLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/next"
+        android:layout_marginStart="20sp"
+        android:visibility="visible"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error Message"
+            android:visibility="gone"
+            android:textColor="#ff0000"
+            android:textSize="16dp"
+            android:id="@+id/errorMessage"
+            />
+
+
+    </LinearLayout>
+</RelativeLayout>

@@ -63,6 +63,7 @@ public class GroupChat extends AppCompatActivity {
 
 
         init();  //1
+        MyDatabase.groupChat().child(groupId).keepSynced(true);
 
         findGroupDetail(groupId);
 
@@ -134,6 +135,7 @@ public class GroupChat extends AppCompatActivity {
                     String senderId="";
                     String senderImage = "";
                     String senderName = "";
+                    String type = "message";
 
                     if (data.hasChild("message"))
                         message = data.child("message").getValue().toString();
@@ -149,9 +151,12 @@ public class GroupChat extends AppCompatActivity {
 
                     if (data.hasChild("senderId"))
                         senderId = data.child("senderId").getValue().toString();
+
+                    if (data.hasChild("type"))
+                        type = data.child("type").getValue().toString();
 //                        Log.d(TAG, "Key ="+key+" message =  "+message+" Time = "+time+"\n\n");
 //                        list.add();
-                    groupAdapter.addNewItem(new UniversalMessageList(message,key,time,senderName,senderImage,senderId, myId));
+                    groupAdapter.addNewItem(new UniversalMessageList(message,key,time,senderName,senderImage,senderId, myId, type));
                     recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
 
                 }
@@ -243,7 +248,6 @@ public class GroupChat extends AppCompatActivity {
                 ->name : Harshit
                 ->uuid : 123
                 -> image :
-
 
              */
 

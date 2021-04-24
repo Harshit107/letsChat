@@ -9,12 +9,13 @@ public class UniversalMessageList {
     String senderImage;
     String senderId;
     String myId;
+    String messageType;
 
     public UniversalMessageList(String message) {
         this.message = message;
     }
 
-    public UniversalMessageList(String message, String key, String time, String senderName, String senderImage, String senderId, String myId) {
+    public UniversalMessageList(String message, String key, String time, String senderName, String senderImage, String senderId, String myId, String type) {
         this.message = message;
         this.key = key;
         this.time = time;
@@ -22,6 +23,15 @@ public class UniversalMessageList {
         this.senderImage = senderImage;
         this.senderId = senderId;
         this.myId = myId;
+        this.messageType = type;
+    }
+
+    public String getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
     }
 
     public String getMyId() {

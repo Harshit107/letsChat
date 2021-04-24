@@ -103,5 +103,7 @@
 
    </RelativeLayout>
 
+<!--   Sender & receiver Image Layout-->
+   <include layout="@layout/recycler_chat_image_layout"/>
 
 </RelativeLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/orange"
+            android:text="Receiver Name"
+            android:id="@+id/imageReceiverName"
+            android:textSize="16sp"
+             />
+        <ImageView
+            android:layout_width="200dp"
+            android:id="@+id/receiverImage"
+            android:layout_height="200dp"
+            android:adjustViewBounds="true"
+            android:background="@color/orange"
+
+            android:maxWidth="200dp"
+            android:layout_below="@id/imageReceiverName"
+            android:maxHeight="200dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        >
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/senderImage"
+            android:padding="5dp"
+            android:adjustViewBounds="true"
+            android:background="@color/yellow"
+            android:maxWidth="200dp"
+            android:maxHeight="200dp"/>
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

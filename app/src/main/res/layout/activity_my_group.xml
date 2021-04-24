@@ -42,5 +42,50 @@
         android:layout_below="@id/toolbar"
         android:id="@+id/recyclerView"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:padding="30dp"
+        android:background="@drawable/curve_group_message"
+        android:gravity="center"
+        android:id="@+id/noGroupLayout"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Group Found"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Create Group"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:layout_marginTop="25dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:id="@+id/create"
+            />
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Join Group"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:id="@+id/join"
+            />
+    </LinearLayout>
+
+
+
 
 </RelativeLayout>

@@ -79,14 +79,36 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-
-        <androidx.recyclerview.widget.RecyclerView
+<!--          <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recyclerView"
             android:layout_below="@id/toolbar"
-            android:layout_above="@id/chatRelative"
+            android:layout_above="@id/chatRelative">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerView"
+                />
+        </ScrollView>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/chatRelative">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerView"
             />
+    </LinearLayout>
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/recyclerView"-->
+<!--            android:layout_below="@id/toolbar"-->
+<!--            android:layout_above="@id/chatRelative"-->
+<!--            />-->
 
 
 

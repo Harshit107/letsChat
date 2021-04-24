@@ -100,7 +100,7 @@ public class UniversalRoom extends AppCompatActivity {
                         senderId = data.child("senderId").getValue().toString();
 //                        Log.d(TAG, "Key ="+key+" message =  "+message+" Time = "+time+"\n\n");
 //                        list.add();
-                    universalAdapter.addNewItem(new UniversalMessageList(message,key,time,senderName,senderImage,senderId, myId));
+                    universalAdapter.addNewItem(new UniversalMessageList(message,key,time,senderName,senderImage,senderId, myId,"message"));
                     recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
 
                 }
