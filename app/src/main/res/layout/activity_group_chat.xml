@@ -79,17 +79,7 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-<!--          <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/toolbar"
-            android:layout_above="@id/chatRelative">
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/recyclerView"
-                />
-        </ScrollView>-->
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -109,10 +99,8 @@
 <!--            android:layout_below="@id/toolbar"-->
 <!--            android:layout_above="@id/chatRelative"-->
 <!--            />-->
-
-
-
         <!--        for sending message-->
+
 
         <RelativeLayout
             android:id="@+id/chatRelative"
@@ -122,16 +110,26 @@
             android:background="#313132"
             >
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_attach_file_24"
+                app:tint="@color/white"
+                android:layout_marginStart="7dp"
+                android:layout_alignParentStart="true"
+                android:id="@+id/attach"
+                />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/senderMessage"
                 android:paddingStart="10dp"
                 android:layout_toLeftOf="@id/sendBt"
+                android:layout_toRightOf="@id/attach"
                 android:layout_marginRight="2dp"
                 android:paddingRight="5dp"
                 android:background="@color/transparent"
-                android:layout_alignParentStart="true"
                 android:hint="Type your message..."
                 android:textColor="@color/white"
                 android:textColorHint="@color/lightWhite"/>

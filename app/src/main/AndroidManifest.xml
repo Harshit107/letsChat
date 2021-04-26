@@ -12,10 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LetsChat">
-        <activity android:name=".MyGroup"/>
-        <activity android:name=".GroupChat" >
-
-        </activity>
+        <activity android:name=".GroupDetail"></activity>
+        <activity android:name=".MyGroup" />
+        <activity android:name=".GroupChat"></activity>
         <activity android:name=".CreateGroup" />
         <activity
             android:name=".UniversalRoom"

@@ -13,11 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.harshit.letschat.Firebase.FirebaseHelper;
 import com.harshit.letschat.Firebase.MyDatabase;
 
 import es.dmoral.toasty.Toasty;
@@ -92,8 +94,6 @@ public class JoinGoup extends AppCompatActivity {
 
                     }
                 });
-
-
             }
         });
 
@@ -111,6 +111,7 @@ public class JoinGoup extends AppCompatActivity {
                         errorMessage.setText("");
                         errorMessage.setVisibility(View.GONE);
                         Toasty.success(getApplicationContext(),"Group Joined successfully").show();
+                        FirebaseHelper.addMemberToGroup(myGroupId, FirebaseAuth.getInstance().getUid());
                         pbar.dismiss();
                         finish();
                     }
@@ -123,4 +124,6 @@ public class JoinGoup extends AppCompatActivity {
                     }
                 });
     }
+
+
 }

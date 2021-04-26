@@ -27,7 +27,7 @@
             android:id="@+id/receiverImage"
             android:layout_height="200dp"
             android:adjustViewBounds="true"
-            android:background="@color/orange"
+            android:background="@drawable/curve_cor"
 
             android:maxWidth="200dp"
             android:layout_below="@id/imageReceiverName"
@@ -48,7 +48,7 @@
             android:id="@+id/senderImage"
             android:padding="5dp"
             android:adjustViewBounds="true"
-            android:background="@color/yellow"
+            android:background="@drawable/curve_cor"
             android:maxWidth="200dp"
             android:maxHeight="200dp"/>
 

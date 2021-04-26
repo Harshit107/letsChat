@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.harshit.letschat.Firebase.FirebaseHelper;
 import com.harshit.letschat.Firebase.MyDatabase;
 
 import java.util.HashMap;
@@ -35,8 +36,6 @@ public class CreateGroup extends AppCompatActivity {
     ProgressDialog pbar;
     String myGroupLink = "https://join.letschat/";
     String groupGlobalKey = "";
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +89,9 @@ public class CreateGroup extends AppCompatActivity {
                                     public void onSuccess(Void aVoid) {
                                         shareLayout.setVisibility(View.VISIBLE);
                                         Toasty.success(getApplicationContext(), "Group created Successfully", Toast.LENGTH_LONG).show();
-                                            link.setText(myGroupLink+uniqueKey);
+                                        FirebaseHelper.addMemberToGroup(uniqueKey, FirebaseAuth.getInstance().getUid());
+
+                                        link.setText(myGroupLink+uniqueKey);
                                             //String myLink = https://join.group.letschat/uniqueId
 //                                            Integer link = myLink.lastIndexOf("/"); 20
 //                                            String groupUniqueKey = link.substring(21,link.length())

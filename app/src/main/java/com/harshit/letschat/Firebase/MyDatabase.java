@@ -9,10 +9,12 @@ public class MyDatabase {
     static DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
     static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+//    user detail
     public static DatabaseReference userDetail() {
         return mRef.child("users").child("detail").child(mAuth.getUid());
     }
 
+//    universal chat reference
     public static DatabaseReference universalChatRef() {
         return mRef.child("users").child("universal").child("message");
     }

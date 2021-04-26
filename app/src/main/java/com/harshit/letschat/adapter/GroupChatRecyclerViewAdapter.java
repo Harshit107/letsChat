@@ -78,6 +78,7 @@ public class GroupChatRecyclerViewAdapter extends RecyclerView.Adapter<GroupChat
                 try {
                     Glide.with(context)
                             .load(lists.get(position).getMessage())
+                            .placeholder(R.drawable.loadindimage)
                             .into(holder.senderImage);
 
                 } catch (Exception e) {
