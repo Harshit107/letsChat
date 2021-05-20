@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -43,20 +42,20 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.harshit.letschat.Firebase.MyDatabase;
-import com.harshit.letschat.adapter.GroupChatRecyclerViewAdapter;
+import com.harshit.letschat.adapter.PersonalChatAdapter;
 import com.harshit.letschat.model.UniversalMessageList;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
-public class GroupChat extends AppCompatActivity {
 
-    private static final String TAG = "GroupChat";
+public class PersonalChat extends AppCompatActivity {
+
+    private static final String TAG = "PersonalChat";
     ImageView back;
     CircleImageView profilePic;
     ImageView send;
@@ -64,7 +63,7 @@ public class GroupChat extends AppCompatActivity {
     TextView lastSeen;
     EditText typeUrMessage;
     RecyclerView recyclerView;
-    public GroupChatRecyclerViewAdapter groupAdapter;
+    PersonalChatAdapter personalAdapter;
     ArrayList<UniversalMessageList> list;
     String myName = "";
     String myId = "";
@@ -76,12 +75,12 @@ public class GroupChat extends AppCompatActivity {
     String fileName = "";
     String documentType = "";
     Intent get;
-    String groupId = "";
+    String receiverID = "";
     private boolean close = true;
     String typeSelected = "message";
     RelativeLayout visibility;
-
     public ImageView scrollDown;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +89,7 @@ public class GroupChat extends AppCompatActivity {
         setContentView(R.layout.activity_group_chat);
 
         get = getIntent();
-        groupId = get.getStringExtra("groupId");
+        receiverID = get.getStringExtra("receiverId");
         scrollDown = findViewById(R.id.scrollDowm);
 
 
@@ -102,14 +101,14 @@ public class GroupChat extends AppCompatActivity {
 
         init();  //1
         extraItemLayout.setVisibility(View.GONE);
-        MyDatabase.groupChat().child(groupId).keepSynced(true);
+        MyDatabase.personalSenderChat(receiverID).keepSynced(true);
 
-        findGroupDetail(groupId);
+        receiverUserDetail(receiverID);
 
         list = new ArrayList<>(); //1234564
-        groupAdapter = new GroupChatRecyclerViewAdapter(list, getApplicationContext(), this);
+        personalAdapter = new PersonalChatAdapter(list, getApplicationContext(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(groupAdapter);
+        recyclerView.setAdapter(personalAdapter);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,16 +152,16 @@ public class GroupChat extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getApplicationContext(), GroupDetail.class);
-                ActivityOptionsCompat option = ActivityOptionsCompat.makeSceneTransitionAnimation(GroupChat.this,
+                ActivityOptionsCompat option = ActivityOptionsCompat.makeSceneTransitionAnimation(PersonalChat.this,
                         profilePic, ViewCompat.getTransitionName(profilePic));
-                it.putExtra("groupId", groupId);
+                it.putExtra("groupId", receiverID);
                 startActivity(it, option.toBundle());
             }
         });
 
         getSenderProfile(); //2
         getNewMessage(); //3
-        checkGroup();   //
+//        checkGroup();   //
         lastMessageMove();
 
         scrollDown.setVisibility(View.GONE);
@@ -170,7 +169,7 @@ public class GroupChat extends AppCompatActivity {
         scrollDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recyclerView.smoothScrollToPosition(groupAdapter.getItemCount());
+                recyclerView.smoothScrollToPosition(personalAdapter.getItemCount());
             }
         });
 
@@ -184,7 +183,7 @@ public class GroupChat extends AppCompatActivity {
 
     public void deleteMessage(String key) {
 
-        MyDatabase.groupChat().child(groupId).child(key).removeValue()
+        MyDatabase.groupChat().child(receiverID).child(key).removeValue()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -201,27 +200,8 @@ public class GroupChat extends AppCompatActivity {
 
     }
 
-
-    void checkGroup() {
-
-        MyDatabase.myGroups().child(groupId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    finish();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toasty.error(getApplicationContext(), error.getMessage()).show();
-            }
-        });
-
-    }
-
-    private void findGroupDetail(String groupId) {
-        MyDatabase.groupDetail().child(groupId).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void receiverUserDetail(String groupId) {
+        MyDatabase.userDetail().child(receiverID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot data) {
                 if (data.exists()) {
@@ -261,7 +241,7 @@ public class GroupChat extends AppCompatActivity {
     private void getNewMessage() {
 
 //        Query query = MyDatabase.groupChat().child(groupId).limitToLast(5);
-        MyDatabase.groupChat().child(groupId)
+        MyDatabase.personalSenderChat(receiverID)
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot data, @Nullable String previousChildName) {
@@ -301,11 +281,11 @@ public class GroupChat extends AppCompatActivity {
                                 myDocumentType = data.child("documentType").getValue().toString();
 //                        Log.d(TAG, "Key ="+key+" message =  "+message+" Time = "+time+"\n\n");
 //                        list.add();
-                            groupAdapter.addNewItem(new UniversalMessageList(message, key,
+                            personalAdapter.addNewItem(new UniversalMessageList(message, key,
                                     time, senderName, senderImage,
                                     senderId, myId,
                                     type, myFileName, myDocumentType));
-                            recyclerView.smoothScrollToPosition(groupAdapter.getItemCount());
+                            recyclerView.smoothScrollToPosition(personalAdapter.getItemCount());
                             Log.d(TAG, "At New Message");
 
                         }
@@ -315,7 +295,7 @@ public class GroupChat extends AppCompatActivity {
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot data, @Nullable String previousChildName) {
                         Log.d(TAG, "My Data : "+data.toString());
-                        recyclerView.smoothScrollToPosition(groupAdapter.getItemCount());
+                        recyclerView.smoothScrollToPosition(personalAdapter.getItemCount());
 
                     }
 
@@ -325,7 +305,7 @@ public class GroupChat extends AppCompatActivity {
                          for (UniversalMessageList myList : list) {
                              if(myList.getKey().equals(data.getKey())){
                                  list.remove(myList);
-                                 groupAdapter.notifyDataSetChanged();
+                                 personalAdapter.notifyDataSetChanged();
                                  break;
                              }
                          }
@@ -371,7 +351,7 @@ public class GroupChat extends AppCompatActivity {
 
     public void sendMessage(final String message, String type) {
         typeSelected = "message";
-        final String messageKey = MyDatabase.groupChat().child(groupId).push().getKey();
+        final String messageKey = MyDatabase.personalSenderChat(receiverID).push().getKey();
         if (message.isEmpty())
             Toast.makeText(getApplicationContext(), "Message cannot be Empty", Toast.LENGTH_LONG).show();
         else {
@@ -387,15 +367,16 @@ public class GroupChat extends AppCompatActivity {
             userData.put("fileName", fileName);
             userData.put("documentType", documentType);
 
-            MyDatabase.groupChat().child(groupId).child(messageKey).setValue(userData)
+            MyDatabase.personalSenderChat(receiverID).child(messageKey).setValue(userData)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(getApplicationContext(), "Sent", Toast.LENGTH_SHORT).show();
+                            MyDatabase.personalReceiverChat(receiverID).child(messageKey).setValue(userData);
 //                            if(typeSelected.equals("image")){
 //                                list.clear();
 //                                getNewMessage();
 //                            }
+
                             pbar.dismiss();
                         }
                     })
@@ -431,7 +412,7 @@ public class GroupChat extends AppCompatActivity {
 
     public void lastMessageMove() {
 
-        MyDatabase.groupChat().child(groupId).addListenerForSingleValueEvent(new ValueEventListener() {
+        MyDatabase.personalSenderChat(receiverID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -516,7 +497,7 @@ public class GroupChat extends AppCompatActivity {
     void uploadImageToStorage(Uri uri) {
         pbar.show();
         StorageReference sRef = FirebaseStorage.getInstance().getReference()
-                .child("users").child("group").child(groupId)
+                .child("users").child("group").child(receiverID)
                 .child(System.currentTimeMillis() + ".jpg");
 
         sRef.putFile(uri)

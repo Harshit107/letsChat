@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="7dp"
+    android:layout_marginBottom="7dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/orange"
+            android:visibility="gone"
+            android:text="Receiver Name"
+            android:id="@+id/documentReceiverName"
+            android:textSize="16sp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_rect"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:id="@+id/receiverDocumentLayout"
+            android:layout_below="@id/documentReceiverName"
+            android:layout_marginEnd="120dp">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:id="@+id/documentReceiverImage"
+                android:layout_height="80dp"
+                android:adjustViewBounds="true"
+                android:visibility="gone"
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="fileName"
+                    android:textColor="@color/orange"
+                    android:visibility="gone"
+                    android:textSize="20sp"
+                    android:maxLines="1"
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/documentFileName"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FileType"
+                    android:textColor="#298A2D"
+                    android:visibility="gone"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/documentReceiverFileType"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    android:textColor="#E1D0D0"
+                    android:maxLines="1"
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/documentReceiverTime"/>
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="5dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_rect"
+            android:orientation="horizontal"
+            android:id="@+id/senderDocumentLayout"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"
+            android:layout_marginStart="120dp"
+            >
+
+            <ImageView
+                android:layout_width="80dp"
+                android:id="@+id/documentSenderImage"
+                android:layout_height="80dp"
+                android:visibility="gone"
+                android:adjustViewBounds="true"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="fileName"
+                    android:textColor="@color/orange"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+
+                    android:maxLines="2"
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/senderFileName"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FileType"
+                    android:textColor="@color/orange"
+                    android:visibility="gone"
+                    android:textSize="16sp"
+                    android:maxLines="2"
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/senderFileType"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    android:textColor="#E1D0D0"
+                    android:maxLines="1"
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/documentSenderTime"/>
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

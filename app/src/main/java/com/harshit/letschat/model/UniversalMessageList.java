@@ -1,6 +1,11 @@
 package com.harshit.letschat.model;
 
+import com.google.firebase.database.core.utilities.Tree;
+
 public class UniversalMessageList {
+
+
+
 
     String message;
     String key;
@@ -10,12 +15,15 @@ public class UniversalMessageList {
     String senderId;
     String myId;
     String messageType;
+    String fileType="";
+    String fileName="";
 
     public UniversalMessageList(String message) {
         this.message = message;
     }
 
-    public UniversalMessageList(String message, String key, String time, String senderName, String senderImage, String senderId, String myId, String type) {
+    public UniversalMessageList(String message, String key, String time, String senderName, String senderImage,
+                                String senderId, String myId, String type) {
         this.message = message;
         this.key = key;
         this.time = time;
@@ -24,6 +32,20 @@ public class UniversalMessageList {
         this.senderId = senderId;
         this.myId = myId;
         this.messageType = type;
+    }
+
+    public UniversalMessageList(String message, String key, String time, String senderName, String senderImage,
+                                String senderId, String myId, String type,String fileName, String fileType) {
+        this.message = message;
+        this.key = key;
+        this.time = time;
+        this.senderName = senderName;
+        this.senderImage = senderImage;
+        this.senderId = senderId;
+        this.myId = myId;
+        this.messageType = type;
+        this.fileName = fileName;
+        this.fileType = fileType;
     }
 
     public String getMessageType() {
@@ -88,5 +110,21 @@ public class UniversalMessageList {
 
     public void setSenderId(String senderId) {
         this.senderId = senderId;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

@@ -50,7 +50,7 @@ public class MyGroup extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         lists = new ArrayList<>();
-        adapter = new MyGroupAdapter(getApplicationContext(), lists);
+        adapter = new MyGroupAdapter(getApplicationContext(), lists, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -85,6 +85,7 @@ public class MyGroup extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot data) {
                 if(data.exists()) {
+                    lists.clear();
                     for(DataSnapshot myData : data.getChildren()) {
                         String groupKey = myData.getKey();
                         lists.add(new GroupList(groupKey));

@@ -7,7 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".UniversalRoom">
 
-        <!--        Top View-->
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    <!--        Top View-->
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,6 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginRight="20dp"
+
                     android:layout_marginTop="5dp"
                     android:src="@drawable/ic_baseline_arrow_back_24"
                     app:tint="@color/white" />
@@ -38,6 +45,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_height="35dp"
                     android:layout_toRightOf="@id/back"
+                    android:transitionName="groupImage"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/logo"
                     android:visibility="visible"
@@ -92,7 +100,22 @@
             android:id="@+id/recyclerView"
             />
     </LinearLayout>
-<!--        <androidx.recyclerview.widget.RecyclerView-->
+
+    <ImageView
+        android:id="@+id/scrollDowm"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20sp"
+        android:layout_width="30dp"
+        android:layout_above="@id/chatRelative"
+        android:layout_height="30dp"
+        android:visibility="gone"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_baseline_arrow_drop_down_circle_24"
+        app:tint="@color/white" />
+
+
+
+    <!--        <androidx.recyclerview.widget.RecyclerView-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            android:id="@+id/recyclerView"-->
@@ -100,6 +123,16 @@
 <!--            android:layout_above="@id/chatRelative"-->
 <!--            />-->
         <!--        for sending message-->
+
+
+
+    <include
+        android:id="@+id/extraItemLayout"
+        layout="@layout/chatpage_send_item"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_above="@id/chatRelative"/>
 
 
         <RelativeLayout
@@ -146,5 +179,15 @@
 
         </RelativeLayout>
 
-
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/visibility"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:background="#292626"/>
+
+</RelativeLayout>

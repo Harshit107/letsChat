@@ -2,11 +2,11 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black"
     app:cardMaxElevation="15dp"
     android:layout_margin="5dp"
     app:cardCornerRadius="3dp"
     android:elevation="10dp"
+    app:cardBackgroundColor="@color/transparent"
     android:visibility="visible"
     android:layout_height="wrap_content">
 
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:visibility="visible"
-            android:text="Group Name"
+            android:text="Please Wait..."
             android:id="@+id/groupName"
             android:textSize="20sp"
             android:layout_centerVertical="true"

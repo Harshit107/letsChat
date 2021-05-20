@@ -4,11 +4,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MyDatabase {
+ public class MyDatabase {
 
     static DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
     static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+    public static DatabaseReference publicDetail() {
+        return mRef.child("users").child("detail");
+    }
 //    user detail
     public static DatabaseReference userDetail() {
         return mRef.child("users").child("detail").child(mAuth.getUid());
@@ -33,4 +36,17 @@ public class MyDatabase {
         return mRef.child("groups").child("chats");
     }
 
-}
+    public static DatabaseReference userGroup() {
+        return mRef.child("users").child("group");
+    }
+
+    public static DatabaseReference personalSenderChat(String receiverId) {
+        return mRef.child("personal").child(mAuth.getUid()).child(receiverId);
+    }
+     public static DatabaseReference personalReceiverChat(String receiverId) {
+         return mRef.child("personal").child(receiverId).child(mAuth.getUid());
+     }
+
+
+
+ }

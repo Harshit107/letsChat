@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.harshit.letschat">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -11,10 +13,28 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LetsChat">
-        <activity android:name=".GroupDetail"></activity>
+        android:theme="@style/Theme.LetsChat"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <activity android:name=".SearchUser"></activity>
+        <activity android:name=".Homepage" />
+        <activity android:name=".ZoomImage" />
+        <activity android:name=".AcceptLink">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="join.letschat.com"
+                    android:pathPattern=".*"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".GroupDetail" />
         <activity android:name=".MyGroup" />
-        <activity android:name=".GroupChat"></activity>
+        <activity android:name=".GroupChat" />
         <activity android:name=".CreateGroup" />
         <activity
             android:name=".UniversalRoom"
@@ -32,6 +52,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".JoinGoup" />
+        <activity android:name=".AddUser" />
+        <activity android:name=".PersonalChat" />
     </application>
 
 </manifest>

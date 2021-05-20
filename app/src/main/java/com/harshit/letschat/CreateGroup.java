@@ -34,7 +34,7 @@ public class CreateGroup extends AppCompatActivity {
     LinearLayout shareLayout;
     ImageView share;
     ProgressDialog pbar;
-    String myGroupLink = "https://join.letschat/";
+    String myGroupLink = "https://join.letschat.com/";
     String groupGlobalKey = "";
 
     @Override

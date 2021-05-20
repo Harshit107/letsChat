@@ -18,9 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.harshit.letschat.Firebase.MyDatabase;
 import com.harshit.letschat.GroupChat;
-import com.harshit.letschat.MainActivity;
+import com.harshit.letschat.PersonalChat;
 import com.harshit.letschat.R;
 import com.harshit.letschat.ZoomImage;
 import com.harshit.letschat.model.UniversalMessageList;
@@ -30,19 +29,17 @@ import com.harshit.util.Helper;
 import java.util.ArrayList;
 import java.util.Random;
 
-import es.dmoral.toasty.Toasty;
-
 //outer class
-public class GroupChatRecyclerViewAdapter extends RecyclerView.Adapter<GroupChatRecyclerViewAdapter.MyViewHolder> {
+public class PersonalChatAdapter extends RecyclerView.Adapter<PersonalChatAdapter.MyViewHolder> {
 
     int  lastMessage = 0;
-    private static final String TAG = "GroupChatAdapter";
+    private static final String TAG = "PersonalChatAdapter";
     ArrayList<UniversalMessageList> lists;
     Context context;
     Activity activity;
     String uid;
 
-    public GroupChatRecyclerViewAdapter(ArrayList<UniversalMessageList> list, Context context, Activity activity) {
+    public PersonalChatAdapter(ArrayList<UniversalMessageList> list, Context context, Activity activity) {
         this.activity = activity;
         this.lists = list;
         this.context = context;
@@ -51,7 +48,7 @@ public class GroupChatRecyclerViewAdapter extends RecyclerView.Adapter<GroupChat
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycler_group_chat, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recycler_personal_chat, parent, false);
         uid = FirebaseAuth.getInstance().getUid();
         return new MyViewHolder(view);
     }
@@ -203,9 +200,9 @@ public class GroupChatRecyclerViewAdapter extends RecyclerView.Adapter<GroupChat
         Log.d(TAG, holder.getAdapterPosition()+"");
 
         if(lists.size() >=7 && holder.getAdapterPosition() <= lists.size() - 10)
-            ((GroupChat)activity).scrollDown.setVisibility(View.VISIBLE);
+            ((PersonalChat)activity).scrollDown.setVisibility(View.VISIBLE);
         else
-            ((GroupChat)activity).scrollDown.setVisibility(View.GONE);
+            ((PersonalChat)activity).scrollDown.setVisibility(View.GONE);
 
         holder.senderMessage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -239,10 +236,6 @@ public class GroupChatRecyclerViewAdapter extends RecyclerView.Adapter<GroupChat
                 context.startActivity(it);
             }
         });
-
-
-
-
 
 
     }

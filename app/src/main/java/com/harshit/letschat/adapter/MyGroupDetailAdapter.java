@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,32 +17,35 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.harshit.letschat.Firebase.MyDatabase;
 import com.harshit.letschat.GroupChat;
-import com.harshit.letschat.MyGroup;
+import com.harshit.letschat.GroupDetail;
 import com.harshit.letschat.R;
 import com.harshit.letschat.model.GroupList;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
-public class MyGroupAdapter extends RecyclerView.Adapter<MyGroupAdapter.MyViewHolder> {
+public class MyGroupDetailAdapter extends RecyclerView.Adapter<MyGroupDetailAdapter.MyViewHolder> {
 
+    int lastMessage = 0;
     private static final String TAG = "MyGroupAdapter";
     Context context;
     ArrayList<GroupList> groupList;
-    String  groupAdmin = "";
-    String groupId = "";
+    String groupAdmin = "";
     Activity activity;
 
-    public MyGroupAdapter(Context context, ArrayList<GroupList> lists, Activity activity) {
+    public MyGroupDetailAdapter(Context context, ArrayList<GroupList> lists, Activity activity) {
         this.context = context;
         this.groupList = lists;
+
         this.activity = activity;
     }
 
@@ -55,9 +59,10 @@ public class MyGroupAdapter extends RecyclerView.Adapter<MyGroupAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        groupId = groupList.get(position).getId();;
+        String userId = groupList.get(position).getId();
         //searching group detail from every group Id
-        MyDatabase.groupDetail().child(groupId).addListenerForSingleValueEvent(new ValueEventListener() {
+        MyDatabase.publicDetail().child(userId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot data) {
                 if(data.exists()) {
@@ -80,9 +85,6 @@ public class MyGroupAdapter extends RecyclerView.Adapter<MyGroupAdapter.MyViewHo
                         }
                     }
 
-                    if(data.child("admin").getValue() != null) {
-                        groupAdmin = data.child("admin").getValue().toString();
-                    }
                 }
             }
 
@@ -93,93 +95,29 @@ public class MyGroupAdapter extends RecyclerView.Adapter<MyGroupAdapter.MyViewHo
             }
         });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(context, GroupChat.class);
-                it.putExtra("groupId", groupId);
-                it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(it);
-            }
-        });
-
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if(!groupAdmin.isEmpty() && groupAdmin.equals(FirebaseAuth.getInstance().getUid())) {
-                    deletMessage();
+
+                String userUUID = groupList.get(position).getId();
+                String groupAdmin = ((GroupDetail)activity).getAdmin();
+                String myId = FirebaseAuth.getInstance().getUid();
+
+                Log.d(TAG, userUUID+"\n"+ groupAdmin+"\n"+ myId);
+
+                if(groupAdmin.equals(myId) && !userUUID.equals(myId)) {
+                    deleteMember(userId);
                 }
+
                 return false;
             }
         });
 
 
-//        holder.groupName.setText(groupList.get(position).getGroupName());
-    }
+        holder.groupName.setTextColor(context.getResources().getColor(R.color.white));
 
-    public void deletMessage( ) {
-        new AlertDialog.Builder(activity)
-                .setTitle("Delete Message")
-                .setMessage("Dou you want to delete group permanently? ")
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        deleteGropChat();
-                        deleteGroupDetail();
-                        deleteGroupFromEveryUser();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
-                .create().show();
 
     }
-    /*
-    takes o(n) which is very time taken
-    optimize soln is :
-        iterate over every member from group
-        delete group from their account
-        it will take o(k);
-    */
-
-
-    private void deleteGropChat() {
-        MyDatabase.groupChat().child(groupId).removeValue();
-    }
-
-    private void deleteGroupDetail() {
-        MyDatabase.groupDetail().child(groupId).removeValue();
-    }
-
-    private void deleteGroupFromEveryUser() {
-       MyDatabase.userGroup().addListenerForSingleValueEvent(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-               if(snapshot.exists()) {
-                   Log.d(TAG,snapshot.getKey());
-
-                   for(DataSnapshot myData : snapshot.getChildren()) {
-
-                       if(myData.child(groupId).exists())
-                           MyDatabase.userGroup().child(myData.getKey()).child(groupId).removeValue();
-                   }
-
-               }
-           }
-
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
-
-           }
-       });
-    }
-
 
     @Override
     public int getItemCount() {
@@ -200,6 +138,38 @@ public class MyGroupAdapter extends RecyclerView.Adapter<MyGroupAdapter.MyViewHo
             super(itemView);
             groupImage = itemView.findViewById(R.id.groupImage);
             groupName = itemView.findViewById(R.id.groupName);
+            groupName.setTextColor(Color.parseColor("#000000"));
         }
     }
+
+    public void deleteMember(String uid ) {
+        new AlertDialog.Builder(activity)
+                .setTitle("Delete Message")
+                .setMessage("Dou you want to remove member permanently? ")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                       String groupId = ((GroupDetail)activity).getGroupId();
+                            MyDatabase.groupDetail().child(groupId).child("member").child(uid)
+                                    .removeValue();
+                            MyDatabase.userGroup().child(uid).child(groupId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toasty.success(context,"Member removed successfully").show();
+                                }
+                            });
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create().show();
+
+    }
+
+
 }

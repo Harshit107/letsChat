@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -12,7 +14,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -29,6 +31,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.harshit.letschat.Firebase.MyDatabase;
+import com.harshit.letschat.adapter.MyGroupDetailAdapter;
+import com.harshit.letschat.model.GroupList;
+import com.harshit.util.ChatpageHelper;
+
+import java.util.ArrayList;
 
 import es.dmoral.toasty.Toasty;
 
@@ -39,6 +46,20 @@ public class GroupDetail extends AppCompatActivity {
     String groupId;
     TextView groupName;
     TextView createdOn;
+    String myGroupLink = "https://join.letschat.com/";
+    TextView shareLink;
+    TextView exitGroup;
+    TextView addMember;
+
+    //group member
+    RecyclerView recyclerView;
+    MyGroupDetailAdapter adapter;
+    ArrayList<GroupList> lists;
+    String myGroupImage;
+    String groupAdmin = "";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +73,13 @@ public class GroupDetail extends AppCompatActivity {
         pbar.setCanceledOnTouchOutside(false);
         pbar.setCancelable(false);
 
-
         groupImage = findViewById(R.id.groupImage);
         editImage = findViewById(R.id.editImage);
         groupName = findViewById(R.id.groupName);
         createdOn = findViewById(R.id.createdOn);
+        shareLink = findViewById(R.id.shareLink);
+        addMember = findViewById(R.id.addMember);
+        exitGroup = findViewById(R.id.exit);
 
         getGroupDataFromDatabase();
 
@@ -66,6 +89,106 @@ public class GroupDetail extends AppCompatActivity {
                 checkPermission();
             }
         });
+
+        shareLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareGroupLink();
+            }
+        });
+
+        exitGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                exitUserFromGroup();
+            }
+        });
+
+        //show member
+        recyclerView = findViewById(R.id.recyclerViewMember);
+        lists = new ArrayList<>();
+        adapter = new MyGroupDetailAdapter(getApplicationContext(), lists,this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+        groupImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), ZoomImage.class);
+                it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                it.putExtra("imageUrl",myGroupImage);
+                startActivity(it);
+            }
+        });
+
+        addMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(),AddUser.class);
+                it.putExtra("groupId",groupId);
+                it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(it);
+            }
+        });
+
+
+
+        MyDatabase.myGroups().keepSynced(true);
+        loadMyGroupData();
+
+    }
+
+    private void loadMyGroupData() {
+
+        pbar.show();
+        MyDatabase.groupDetail().child(groupId).child("member")
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot data) {
+                if(data.exists()) {
+                    lists.clear();
+                    for(DataSnapshot myData : data.getChildren()) {
+                        String groupKey = myData.getKey();
+                        lists.add(new GroupList(groupKey));
+                    }
+                    adapter.addNewItem(lists); //sending to adapter
+                }
+
+                pbar.dismiss();
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                pbar.dismiss();
+            }
+        });
+
+
+    }
+
+    private void exitUserFromGroup() {
+        pbar.show();
+        MyDatabase.groupDetail().child(groupId).child("member").child(FirebaseAuth.getInstance().getUid())
+                .removeValue();
+        MyDatabase.myGroups().child(groupId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+               pbar.dismiss();
+               finish();
+            }
+        });
+
+    }
+
+    private void shareGroupLink() {
+        String link = "Join Group using code : "+groupId+"\n Or\n"+"Join through link : \n";
+        Intent it = new Intent();
+        it.setAction(Intent.ACTION_SEND);
+        it.setType("text/plain");
+        it.putExtra(Intent.EXTRA_SUBJECT,"Choose One");
+        it.putExtra(Intent.EXTRA_TEXT,link + myGroupLink+groupId);
+        startActivity(Intent.createChooser(it,"Select"));
     }
 
 
@@ -86,16 +209,15 @@ public class GroupDetail extends AppCompatActivity {
 
                     }
                     if (data.hasChild("image")) {
-                        String image = data.child("image").getValue().toString();
+                        myGroupImage = data.child("image").getValue().toString();
                         try {
-                            Glide.with(getApplicationContext())
-                                    .load(image)
-                                    .centerCrop()
-                                    .placeholder(R.drawable.loadindimage)
-                                    .into(groupImage);
+                            ChatpageHelper.setImage(getApplicationContext(),groupImage,myGroupImage);
                         }catch (Exception e) {
                             e.printStackTrace();
                         }
+                    }
+                    if (data.hasChild("admin")) {
+                        groupAdmin = data.child("admin").getValue().toString();
                     }
                     pbar.dismiss();
                 }
@@ -125,6 +247,8 @@ public class GroupDetail extends AppCompatActivity {
         it.setType("image/*");
         startActivityForResult(new Intent(Intent.createChooser(it, "Choose Image")), 120);
     }
+
+
 
     //result of image you select from gallery
     @Override
@@ -207,6 +331,14 @@ public class GroupDetail extends AppCompatActivity {
                 });
 
 
+    }
+
+    public String getAdmin() {
+        return groupAdmin;
+    }
+
+    public String getGroupId() {
+        return groupId;
     }
 
 }

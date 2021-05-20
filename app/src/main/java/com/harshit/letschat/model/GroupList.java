@@ -5,6 +5,7 @@ public class GroupList {
     private String id;
     private String groupName;
     private String groupImage;
+    private String groupAdmin;
 
     public String getId() {
         return id;
@@ -40,6 +41,7 @@ public class GroupList {
         this.id = id;
         this.groupImage = "";
         this.groupName = "";
+
     }
 
 }

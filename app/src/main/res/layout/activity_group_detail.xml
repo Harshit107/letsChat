@@ -3,64 +3,182 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#2C2C2C"
     android:layout_height="match_parent"
     tools:context=".GroupDetail">
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/groupImage"
+        android:layout_height="match_parent">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_alignParentTop="true"
-            />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@drawable/gradient_image"
-            android:layout_alignBottom="@id/groupImage"
-            />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/groupImage"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/group_image"
+                android:transitionName="groupImage"
+                android:scaleType="centerCrop"
+                android:background="#ccc"
+                android:layout_alignParentTop="true"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@drawable/gradient_image"
+                android:layout_alignBottom="@id/groupImage"
+                />
 
 
-        <TextView
-            android:id="@+id/groupName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/createdOn"
-            android:layout_marginStart="5dp"
-            android:text="Group Name"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/groupName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/createdOn"
+                android:layout_marginStart="10dp"
+                android:text="Group Name"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/createdOn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/groupImage"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="Created by"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-             />
+            <TextView
+                android:id="@+id/createdOn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/groupImage"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="Created by"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                />
 
-        <ImageView
-            android:id="@+id/editImage"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/ic_baseline_edit_24"
-            app:tint="@color/white"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-             />
+            <ImageView
+                android:id="@+id/editImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/round_circle_color_primary"
+                android:layout_alignParentTop="true"
+                android:padding="5dp"
+                android:src="@drawable/ic_baseline_edit_24"
+                app:tint="@color/white"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/groupImage"
+                android:paddingStart="2dp"
+                android:layout_marginTop="5dp"
+                android:paddingEnd="5dp"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardMaxElevation="10dp"
+                    android:elevation="15dp"
+                    app:cardBackgroundColor="#910505">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/white"
+                        app:drawableTint="@color/white"
+                        android:drawablePadding="10dp"
+                        android:textSize="20sp"
+                        android:text="Exit Group"
+                        android:id="@+id/exit"
+                        app:drawableStartCompat="@drawable/ic_baseline_exit_to_app_24" />
+
+                </androidx.cardview.widget.CardView>
 
 
-    </RelativeLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardMaxElevation="10dp"
+                    android:elevation="15dp"
+                    app:cardBackgroundColor="#393838">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="15dp"
+
+                        android:textColor="@color/white"
+                        app:drawableTint="@color/white"
+                        android:drawablePadding="10dp"
+                        android:textSize="20sp"
+                        android:text="Add Member"
+                        android:id="@+id/addMember"
+                        app:drawableStartCompat="@drawable/ic_baseline_person_add_24" />
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="5dp"
+
+                    app:cardCornerRadius="5dp"
+                    app:cardMaxElevation="10dp"
+                    android:elevation="15dp"
+                    app:cardBackgroundColor="#393838">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/white"
+                        app:drawableTint="@color/white"
+                        android:drawablePadding="10dp"
+                        android:textSize="20sp"
+                        android:text="Share Link"
+                        android:id="@+id/shareLink"
+                        app:drawableStartCompat="@drawable/ic_baseline_link_24" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingStart="15dp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:drawableTint="@color/white"
+                    android:drawablePadding="10dp"
+                    android:textSize="15sp"
+                    android:text="Group Members"/>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recyclerViewMember"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 
 </RelativeLayout>

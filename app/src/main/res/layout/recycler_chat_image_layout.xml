@@ -23,15 +23,15 @@
             android:textSize="16sp"
              />
         <ImageView
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:id="@+id/receiverImage"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="@drawable/curve_cor"
 
-            android:maxWidth="200dp"
+            android:maxWidth="300dp"
             android:layout_below="@id/imageReceiverName"
-            android:maxHeight="200dp"/>
+            android:maxHeight="300dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -43,14 +43,14 @@
         >
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/senderImage"
             android:padding="5dp"
             android:adjustViewBounds="true"
             android:background="@drawable/curve_cor"
-            android:maxWidth="200dp"
-            android:maxHeight="200dp"/>
+            android:maxWidth="300dp"
+            android:maxHeight="300dp"/>
 
 
     </RelativeLayout>
